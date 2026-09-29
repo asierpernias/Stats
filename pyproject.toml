@@ -1,2 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stats"
+version = "0.1.0"
+description = "Analyze programming projects"
+
 [project.scripts]
 stats = "stats.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
