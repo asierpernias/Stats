@@ -12,6 +12,14 @@ sufixes = {
     ".java": 0,
     "others": 0
 }
+stats_generales = {
+    ".py": 0,
+    ".js": 0,
+    ".html": 0,
+    ".css": 0,
+    ".java": 0,
+    "others": 0
+}
 if directory.exists() and directory.is_dir():
     pass
 else: 
@@ -56,8 +64,16 @@ for item in directory.iterdir():
         analizar(item, 0, proyecto)
         proyectos.append(proyecto)
 
+for proyecto in proyectos:
+    for lenguaje in proyecto:
+        if lenguaje in stats_generales:
+            stats_generales[lenguaje] += 1
+
 print("\nProyectos:")
 print(proyectos)
 
 print("\nStats de archivos:")
 print(sufixes)
+
+print("\nStats generales: ")
+print(stats_generales)
