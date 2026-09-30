@@ -12,6 +12,8 @@ SUFIXES = {
     "others": 0
 }
 def recorrer_archivos(carpeta, proyecto):
+    contador = 0
+    lineas = 0
     for item in carpeta.iterdir():
 
         if item.is_dir():
@@ -19,17 +21,22 @@ def recorrer_archivos(carpeta, proyecto):
             if item.name == ".git":
                 continue
 
-            recorrer_archivos(item, proyecto)
-
+            archivo_subcarpeta, lineas_subcarpeta = recorrer_archivos(item, proyecto)
+            lineas += lineas_subcarpeta
+            contador += archivo_subcarpeta
         else:
             extension = item.suffix
-
+            contador += 1
             if extension in SUFIXES:
                 SUFIXES[extension] += 1
                 proyecto.add(extension)
+                contenido = item.read_text(encoding="utf-8")
+                lineas += len(contenido.splitlines())
 
             else:
                 SUFIXES["others"] += 1
+                proyecto.add("others")
+    return contador, lineas
     
 def analizar_carpeta(carpeta):
     proyectos = []
@@ -46,9 +53,9 @@ def analizar_carpeta(carpeta):
 def analizar_proyecto(carpeta):
     proyecto = set()
 
-    recorrer_archivos(carpeta, proyecto)
+    contador, lineas = recorrer_archivos(carpeta, proyecto)
 
-    return proyecto
+    return proyecto, contador, lineas
 
 def calcular_estadisticas(proyectos):
 
@@ -58,13 +65,19 @@ def calcular_estadisticas(proyectos):
         ".html": 0,
         ".css": 0,
         ".java": 0,
-        "others": 0
+        "others": 0,
+        "files": 0,
+        "lineas": 0
     }
 
-    for proyecto in proyectos:
+    for proyecto, contador, lineas in proyectos:
         for lenguaje in proyecto:
             if lenguaje in stats:
                 stats[lenguaje] +=1
+        
+        stats["files"] += contador
+        stats["lineas"] += lineas
+
 
     return stats
 
