@@ -38,7 +38,7 @@ The following table shows which extensions are currently recognized.
 Clone the repository and install the project in editable mode.
 
 ```bash
-git clone
+git clone https://github.com/asierpernias/Stats.git
 cd Stats
 python -m pip install -e .
 ```
@@ -92,6 +92,9 @@ Others 0
 - `pip`
 
 The project uses `setuptools` for packaging and exposes the stats command through `pyproject.toml`
+
+## Screenshots
+<img width="522" height="183" alt="image" src="https://github.com/user-attachments/assets/99e48395-dcdd-4fd0-81ea-350c5bd76738" />
 
 ## License
 
