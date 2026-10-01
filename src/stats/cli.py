@@ -4,10 +4,10 @@ from pathlib import Path
 from .analyzer import (
     analizar_carpeta,
     analizar_proyecto,
-    calcular_estadisticas
+    calcular_estadisticas,
 )
 from .Formatter import formatear_estadisticas, formatear_estadisticas_global
-from .storage import cargar_proyecto, guardar_proyecto
+from .storage import cargar_proyecto, guardar_proyecto, listar_proyectos, eliminar_proyecto
 
 def main():
     
@@ -23,13 +23,26 @@ Example:
     stats -m ./project-1 ./project-2 
     stats -m ./my-project --save 
     stats --global 
-
+    stats --list
+    stats --delete PROJECT
 """
     )
 
     parser.add_argument(
         "paths",
         nargs="*",
+    )
+
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        help="List saved projects"
+    )
+
+    parser.add_argument(
+        "--delete",
+        metavar="[PROJECT]",
+        help="Delete a saved project"
     )
 
     parser.add_argument(
@@ -58,6 +71,30 @@ Example:
 
     args = parser.parse_args()
 
+    if args.list:
+        proyectos = listar_proyectos()
+
+        if not proyectos:
+            print("No saved projects.")
+            return
+
+        print("Saved projects: ")
+        for proyecto in proyectos:
+            print(f"  {proyecto}")
+
+        return
+
+    if args.delete:
+        eliminado = eliminar_proyecto(args.delete)
+
+        if eliminado:
+            print(f"Deleted project: {args.delete}")
+        else:
+            print(f"Project not found: {args.delete}")
+
+        return
+
+    
     if args.global_stats:
         proyectos_guardados = cargar_proyecto()
 

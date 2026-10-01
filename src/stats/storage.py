@@ -24,3 +24,22 @@ def guardar_proyecto(nombre, files, lines, languages):
 
     with STATS_FILE.open("w", encoding="utf-8") as archivo:
          json.dump(proyectos, archivo, indent=4)
+
+def listar_proyectos():
+     proyectos = cargar_proyecto()
+     return list(proyectos.keys())
+
+def eliminar_proyecto(nombre):
+    proyectos = cargar_proyecto()
+
+    if not nombre in proyectos:
+        return False
+
+    del proyectos[nombre]
+
+    STATS_FILE.parent.mkdir(parents=True, exist_ok=True)   
+
+    with STATS_FILE.open("w", encoding="utf-8") as archivo:
+        json.dump(proyectos, archivo, indent=4)
+
+    return True
