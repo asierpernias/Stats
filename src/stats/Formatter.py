@@ -1,4 +1,5 @@
 import shutil
+from .colors import BOLD, CYAN, GREEN, RESET, YELLOW
 
 formatting = {
     ".py": "Python",
@@ -24,10 +25,10 @@ def formatear_estadisticas(stats):
     ancho = shutil.get_terminal_size().columns
 
     resultado = []
-    resultado.append("\033[1mSTATS:\033[0m")
+    resultado.append(f"{BOLD}{CYAN}STATS:{RESET}")
     resultado.append("-" * ancho)
-    resultado.append(f"Files: {stats['files']}")
-    resultado.append(f"Lines: {stats['lines']}")
+    resultado.append(f"Files: {GREEN}{stats['files']}{RESET}")
+    resultado.append(f"Lines: {GREEN}{stats['lines']}{RESET}")
     resultado.append("")
     resultado.append("Languages:")
 
@@ -42,7 +43,7 @@ def formatear_estadisticas(stats):
             resultado.append(
                 f"  {formatting[stat]:<15}"
                 f"{stats[stat]:<5}"
-                f"{porcentaje:.1f}%"
+                f"{YELLOW}{porcentaje:.1f}%{RESET}"
             )
 
     return "\n".join(resultado)

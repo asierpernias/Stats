@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-
+from .colors import GREEN, RED, YELLOW, RESET
 from .analyzer import (
     analizar_carpeta,
     analizar_proyecto,
@@ -75,12 +75,12 @@ Example:
         proyectos = listar_proyectos()
 
         if not proyectos:
-            print("No saved projects.")
+            print(f"{YELLOW}No saved projects.")
             return
 
-        print("Saved projects: ")
+        print("{CYAN}Saved projects:{RESET} ")
         for proyecto in proyectos:
-            print(f"  {proyecto}")
+            print(f"  {GREEN}{proyecto}{RESET}")
 
         return
 
@@ -88,9 +88,9 @@ Example:
         eliminado = eliminar_proyecto(args.delete)
 
         if eliminado:
-            print(f"Deleted project: {args.delete}")
+            print(f"{GREEN}Deleted project: {args.delete}{RESET}")
         else:
-            print(f"Project not found: {args.delete}")
+            print(f"{RED}Project not found: {args.delete}{RESET}")
 
         return
 
@@ -115,8 +115,8 @@ Example:
         path = Path(path)
 
         if not path.is_dir():
-            print(f"Error: `{path}` is not a folder.")
-            print("Use `stats --help` for more information.")
+            print(f"{RED}Error: `{path}` is not a folder.{RESET}")
+            print("{YELLOW}Use `stats --help` for more information.{RESET}")
             continue
 
         rutas.append(path)
