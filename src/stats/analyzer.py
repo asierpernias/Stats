@@ -67,7 +67,7 @@ def calcular_estadisticas(proyectos):
         ".java": 0,
         "others": 0,
         "files": 0,
-        "lineas": 0
+        "lines": 0
     }
 
     for proyecto, contador, lineas in proyectos:
@@ -76,7 +76,7 @@ def calcular_estadisticas(proyectos):
                 stats[lenguaje] +=1
         
         stats["files"] += contador
-        stats["lineas"] += lineas
+        stats["lines"] += lineas
 
 
     return stats

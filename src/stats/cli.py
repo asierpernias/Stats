@@ -6,8 +6,8 @@ from .analyzer import (
     analizar_proyecto,
     calcular_estadisticas
 )
-from .Formatter import formatear_estadisticas
-
+from .Formatter import formatear_estadisticas, formatear_estadisticas_global
+from .storage import cargar_proyecto, guardar_proyecto
 
 def main():
     
@@ -25,7 +25,31 @@ def main():
         action="store_true"
     )
 
+    parser.add_argument(
+        "--save",
+        action="store_true",
+        help="Save project statistics locally"
+    )
+
+    parser.add_argument(
+        "--global",
+        dest="global_stats",
+        action="store_true",
+        help="Show statistics for all saved projects"
+    )
+
     args = parser.parse_args()
+
+    if args.global_stats:
+        proyectos_guardados = cargar_proyecto()
+
+        if not proyectos_guardados:
+            print("No saved projects")
+            return
+        print(formatear_estadisticas_global(proyectos_guardados))
+        return
+
+    
     if not args.paths:
         args.paths = ["."]
 
@@ -48,12 +72,24 @@ def main():
       for path in rutas:
             resultado =analizar_proyecto(Path(path))
             proyecto.append(resultado)
-        
+
+            if args.save:
+                estadisticas_proyecto = calcular_estadisticas([resultado])
+                guardar_proyecto(
+                    path.name,
+                    estadisticas_proyecto["files"],
+                    estadisticas_proyecto["lines"],
+                {
+                    lenguaje: estadisticas_proyecto[lenguaje]
+                    for lenguaje in estadisticas_proyecto
+                    if lenguaje not in ("files", "lines")
+                }
+            )
     else:
         for path in rutas:
             resultado =analizar_carpeta(Path(path))
             proyecto.extend(resultado)
-    estadisticas = calcular_estadisticas(proyecto)
+    estadisticas = calcular_estadisticas(proyecto)    
     print(formatear_estadisticas(estadisticas))
 
 if __name__ == "__main__":
