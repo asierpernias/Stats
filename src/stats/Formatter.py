@@ -6,6 +6,16 @@ formatting = {
     ".html": "Html",
     ".css": "CSS",
     ".java": "Java",
+    ".ts": "TSX",
+    ".jsx": "JSX",
+    ".tsx": "TSX",
+    ".scss":"SCSS",
+    ".c": "C",
+    ".h": "C/C++ Header",
+    ".cpp": "C++",
+    ".cs": "C#",
+    ".go": "Go",
+    ".rs": "Rust",
     "others": "Others"
 }
 def formatear_estadisticas(stats):
@@ -28,9 +38,17 @@ def formatear_estadisticas_global(proyectos):
         ".html": 0,
         ".css": 0,
         ".java": 0,
-        "others": 0,
-        "files": 0,
-        "lines": 0
+        ".ts": 0,
+        ".jsx": 0,
+        ".tsx": 0,
+        ".scss":0,
+        ".c": 0,
+        ".h": 0,
+        ".cpp": 0,
+        ".cs": 0,
+        ".go": 0,
+        ".rs": 0,
+        "others": 0
     }
 
     for proyecto in proyectos.values():

@@ -21,6 +21,16 @@ The following table shows which extensions are currently recognized.
 | .html |
 | .css |
 | .java |
+| .ts | 
+| .tsx |
+| .jsx |
+| .scss |
+| .c |
+| .h | 
+| .cpp |
+| .cs |
+| .go |
+| .rs |
 | Others |
 
 ## Instalation 

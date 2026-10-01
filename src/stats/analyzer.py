@@ -3,12 +3,22 @@ from pathlib import Path
 import sys
 import os
 
-SUFIXES = {
+SUFFIXES = {
     ".py": 0,
     ".js": 0,
     ".html": 0,
     ".css": 0,
     ".java": 0,
+    ".ts": 0,
+    ".jsx": 0,
+    ".tsx": 0,
+    ".scss":0,
+    ".c": 0,
+    ".h": 0,
+    ".cpp": 0,
+    ".cs": 0,
+    ".go": 0,
+    ".rs": 0,
     "others": 0
 }
 def recorrer_archivos(carpeta, proyecto):
@@ -27,14 +37,14 @@ def recorrer_archivos(carpeta, proyecto):
         else:
             extension = item.suffix
             contador += 1
-            if extension in SUFIXES:
-                SUFIXES[extension] += 1
+            if extension in SUFFIXES:
+                SUFFIXES[extension] += 1
                 proyecto.add(extension)
                 contenido = item.read_text(encoding="utf-8")
                 lineas += len(contenido.splitlines())
 
             else:
-                SUFIXES["others"] += 1
+                SUFFIXES["others"] += 1
                 proyecto.add("others")
     return contador, lineas
     
@@ -60,14 +70,8 @@ def analizar_proyecto(carpeta):
 def calcular_estadisticas(proyectos):
 
     stats = {
-        ".py": 0,
-        ".js": 0,
-        ".html": 0,
-        ".css": 0,
-        ".java": 0,
-        "others": 0,
-        "files": 0,
-        "lines": 0
+        extension: 0
+        for extension in SUFFIXES
     }
 
     for proyecto, contador, lineas in proyectos:

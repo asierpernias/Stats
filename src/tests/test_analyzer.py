@@ -31,7 +31,14 @@ def test_analizar_proyecto(tmp_path):
 
     assert ".py" in lenguaje
     assert ".js" in lenguaje
-    assert "lines" == 3
-    assert "files" == 2
+    assert lines == 3
+    assert files == 2
 
 
+def test_carpeta_vacia(tmp_path):
+    proyecto = analizar_proyecto(tmp_path)
+
+    lenguajes, files, lines = proyecto
+    assert files ==0
+    assert lines == 0
+    assert lenguajes == set()
