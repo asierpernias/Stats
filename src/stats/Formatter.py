@@ -26,7 +26,7 @@ def formatear_estadisticas(stats):
     resultado.append(f"Files: {stats['files']}")
     resultado.append(f"Lines: {stats['lines']} \n")
     for stat in stats:
-        if stat not in {"files", "lines"}:
+        if stat not in {"files", "lines"} and stats[stat] != 0:
             resultado.append(f"{formatting[stat]:<12} {stats[stat] }")
 
     return "\n".join(resultado)
@@ -54,7 +54,7 @@ def formatear_estadisticas_global(proyectos):
     for proyecto in proyectos.values():
         stats["files"] += proyecto["files"]
         stats["lines"] += proyecto["lines"]
-
+    
         for lenguaje in proyecto["languages"]:
             if lenguaje in stats:
                 stats[lenguaje] += proyecto["languages"][lenguaje]

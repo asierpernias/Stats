@@ -13,6 +13,18 @@ def main():
     
     parser = argparse.ArgumentParser(
         description="Analyze programming projects",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Example:
+    stats 
+    stats . 
+    stats ./project 
+    stats -m ./my-project 
+    stats -m ./project-1 ./project-2 
+    stats -m ./my-project --save 
+    stats --global 
+
+"""
     )
 
     parser.add_argument(
@@ -23,6 +35,12 @@ def main():
     parser.add_argument(
         "-m",
         action="store_true"
+    )
+
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="stats 0.2.0"
     )
 
     parser.add_argument(

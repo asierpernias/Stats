@@ -1,7 +1,5 @@
 
 from pathlib import Path
-import sys
-import os
 
 SUFFIXES = {
     ".py": 0,
@@ -73,6 +71,8 @@ def calcular_estadisticas(proyectos):
         extension: 0
         for extension in SUFFIXES
     }
+    stats["files"]= 0
+    stats["lines"] = 0
 
     for proyecto, contador, lineas in proyectos:
         for lenguaje in proyecto:
