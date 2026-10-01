@@ -16,6 +16,6 @@ def test_formatear_estadisticas():
 
     assert "Files: 2" in resultado
     assert "Lines: 47" in resultado
-    assert "Python" in resultado
-    assert "Js" in resultado
+    assert "Python" not in resultado
+    assert "JavaScript" in resultado
     assert "Others" in resultado

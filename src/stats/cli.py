@@ -78,7 +78,8 @@ Example:
         path = Path(path)
 
         if not path.is_dir():
-            print(f"Error: {path} is not a folder")
+            print(f"Error: `{path}` is not a folder.")
+            print("Use `stats --help` for more information.")
             continue
 
         rutas.append(path)
