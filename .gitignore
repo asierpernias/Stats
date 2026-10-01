@@ -6,3 +6,5 @@ dist/
 build/
 *stats.egg-info/
 .pytest_cache/
+*src\stats.egg-info\
+src\stats\__pycache__\
